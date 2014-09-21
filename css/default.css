@@ -1,0 +1,36 @@
+
+table {
+  font: 12px sans-serif;
+  width: 900px;
+}
+
+thead th {
+  height: 20px;
+  font: 20px sans-serif;
+  font-weight: bold;
+  text-align: center;
+  padding-right: 6px;
+  border-bottom: 1px solid black;
+  background: darkblue;
+}
+
+tbody tr {
+  font-weight: normal;
+  text-align: center;
+  background: steelblue;
+}
+
+table td {
+  overflow: auto;
+}
+
+
+tr:hover {
+  font-weight: bold;
+  background: brown;
+}
+
+img {
+	width: 200px;
+	height: auto;	
+}
