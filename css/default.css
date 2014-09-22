@@ -6,31 +6,22 @@ table {
 
 thead th {
   height: 20px;
-  font: 20px sans-serif;
+  font: 12px sans-serif;
   font-weight: bold;
   text-align: center;
   padding-right: 6px;
   border-bottom: 1px solid black;
-  background: darkblue;
+  background: #2ca25f;//http://colorbrewer2.org/#
+}
+
+tr:hover {
+  font-weight: bold;
+  background: #99d8c9;//http://colorbrewer2.org/#
 }
 
 tbody tr {
   font-weight: normal;
   text-align: center;
-  background: steelblue;
-}
-
-table td {
-  overflow: auto;
-}
-
-
-tr:hover {
-  font-weight: bold;
-  background: brown;
-}
-
-img {
-	width: 200px;
-	height: auto;	
+  height: 20px;
+  background: #e5f5f9;//http://colorbrewer2.org/#
 }
