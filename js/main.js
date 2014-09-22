@@ -2,7 +2,7 @@ var entries = ['formula', 'formula_name_structure_1', 'hf298_1','reference_1'];
 
 d3.xml("/data/BURCAT_THR.xml", function(xml) {
 
-	var table = d3.select("table").attr("class", "grid");
+	var table = d3.select("table");
 	var thead = d3.select("thead");
 	//add header row:
 	thead.selectAll("th").data(["CAS"].concat(entries)).enter().append('th').text(function(d) {
@@ -71,5 +71,6 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 });
 
 function createurl(cas) {
-	return "http://cactus.nci.nih.gov/chemical/structure/" + cas + "/image?format=png";
+	var background_color = "e5f5f9";//hex
+	return "http://cactus.nci.nih.gov/chemical/structure/" + cas + "/image?format=png&bgcolor=%23"+background_color+"&header=\"" + cas +"\"";
 }
