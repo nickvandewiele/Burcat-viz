@@ -66,7 +66,7 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	hf_nodes.data(hf_data).text(function (d){return d;});
 	
 	 //we push a new header entry 'inchi', and enter the new data array in the header rows:
-  	header_entries.push('+/-');
+  	header_entries.push('uncertainty');
 	thead.selectAll("th").data(header_entries).enter().append('th').text(function(d) {
 		return d;
 	});
@@ -77,7 +77,7 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	}).enter().append("td").text(function(d) {
 		var uncertainty = get_uncertainty(d);
 		return uncertainty; 
-	}).attr('id', 'hf_uncertainty');
+	}).attr('id', 'uncertainty');
 	
 	  
   //we push a new header entry 'inchi', and enter the new data array in the header rows:
@@ -129,11 +129,15 @@ function get_uncertainty(species) {
 
 	var unit_kcal = false, //reset
 	hf = species.getElementsByTagName('hf298_1');
-	if (hf.length == 0){
+	
+	if (hf.length == 0){//check if specie node has 'hf298_1' child:
 		return NaN;
 	}
+	hf_val = hf[0].textContent;
+	unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true: false;
 	
-	hf_val = hf[0].textContent.split('+/-');
+	hf_val = hf_val.split('KJ')[0].split('KCAL')[0];
+	hf_val = hf_val.split('+/-');
 
 	if (hf_val.length > 1) {
 		uncertainty = parseFloat(hf_val[1].trim());
