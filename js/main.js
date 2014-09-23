@@ -1,4 +1,4 @@
-var entries = ['formula', 'formula_name_structure_1', 'hf298_1','reference_1'];
+var entries = ['formula', 'formula_name_structure_1','reference_1', 'hf298_1'];
 
 d3.xml("/data/BURCAT_THR.xml", function(xml) {
 
@@ -21,6 +21,8 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 		var cas = d.getAttribute("CAS");
 		return cas;
 	}).attr('id', 'CAS');
+
+	
 
 	//enter data for the child nodes:
 	for (var i = 0; i < entries.length; i++) {
@@ -54,7 +56,67 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	*  bower install tinysort
 	*/
 
-	//keep track of the order in which the IDs are ordered:
+  
+  //we push a new header entry 'inchi', and enter the new data array in the header rows:
+  	header_entries.push('inchi');
+	thead.selectAll("th").data(header_entries).enter().append('th').text(function(d) {
+		return d;
+	});
+	
+	//we select all table rows and add an entry for the inchi table cell:
+	tr.selectAll("tr").data(function(d) {
+		return d3.select(d)[0];
+	}).enter().append("td").text(function(d) {
+		var cas = d.getAttribute("CAS");
+		var inchi = get_inchi(cas);
+		return inchi;
+	}).attr('id', 'inchi');
+
+
+	//select all table rows and print values in kJ by default:
+	var hf_arr = d3.selectAll("#hf298_1")[0],
+	    hf_data = [],
+		uncertainties = {};
+	
+	for(var i = 0; i < hf_arr.length; i++){
+		//var cas = hf_arr[i].parent().children('#CAS').children('img').attr('alt');
+		var unit_kcal = false,//reset
+		    hf_val = hf_arr[i].textContent;
+		unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true: false;
+		
+		hf_val = hf_val.split('KJ')[0].split('KCAL')[0];
+		arr = hf_val.split('+/-');
+		hf_val = parseFloat(arr[0].trim());
+		hf_data.push((unit_kcal? hf_val*4.186 : hf_val).toFixed(2));
+
+		if(arr.length > 1){		
+			uncertainty = parseFloat(arr[1].trim());
+			uncertainties[hf_arr[i]] = ((unit_kcal? uncertainty*4.186 : uncertainty).toFixed(2));
+		}
+		else{
+			uncertainties[hf_arr[i]] = 0;
+		}
+	}
+
+	//update existing nodes with parsed values in kJ:
+	var hf_nodes = d3.selectAll("#hf298_1");
+	hf_nodes.data(hf_data).text(function (d){return d;});
+	
+	 //we push a new header entry 'inchi', and enter the new data array in the header rows:
+  	header_entries.push('hf_uncertainty');
+	thead.selectAll("th").data(header_entries).enter().append('th').text(function(d) {
+		return d;
+	});
+	
+	//we select all table rows and add an entry for the inchi table cell:
+	tr.selectAll("tr").data(function(d) {
+		return d3.select(d)[0];
+	}).enter().append("td").text(function(d) {
+		var uncertainty = get_uncertainty(d);
+		return uncertainty; 
+	}).attr('id', 'hf_uncertainty');
+	
+		//keep track of the order in which the IDs are ordered:
 	var aAsc = [];
 
 	function sortTable(id) {
@@ -88,20 +150,7 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	//set default option:
   	menu.property("value", "formula");
   	
-  	//we push a new header entry 'inchi', and enter the new data array in the header rows:
-  	header_entries.push('inchi');
-	thead.selectAll("th").data(header_entries).enter().append('th').text(function(d) {
-		return d;
-	});
-	//we select all table rows and add an entry for the inchi table cell:
-	tr.selectAll("tr").data(function(d) {
-		return d3.select(d)[0];
-	}).enter().append("td").text(function(d) {
-		var cas = d.getAttribute("CAS");
-		var inchi = get_inchi(cas);
-		return inchi;
-	}).attr('id', 'inchi');
-	
+
 });
 
 function httpGet(theUrl)
@@ -119,12 +168,40 @@ function get_inchi(cas_string){
 	cas_arr = cas_string.split(' ');
 	var cas = cas_arr[0]; 
 	var base_url = 'http://cactus.nci.nih.gov/chemical/structure/';
-	var inchi = httpGet(base_url + cas + "/stdinchi");
-	//var inchi = base_url + cas + "/stdinchi";
+	//var inchi = httpGet(base_url + cas + "/stdinchi");
+	var inchi = base_url + cas + "/stdinchi";
 	return inchi.indexOf("404") > -1 ? '': inchi;
 }
-function createurl(cas) {
+function create_image_url(cas) {
 	var base_url = "http://cactus.nci.nih.gov/chemical/structure/";
 	var background_color = "e5f5f9";//hex
 	return base_url + cas + "/image?format=png&bgcolor=%23"+background_color+"&header=\"" + cas +"\"";
 }
+
+
+function get_uncertainty(species) {
+
+	var unit_kcal = false, //reset
+	hf = species.getElementsByTagName('hf298_1');
+	if (hf.length == 0){
+		return NaN;
+	}
+	
+	hf_val = hf[0].textContent;
+	unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true : false;
+
+	hf_val = hf_val.split('KJ')[0].split('KCAL')[0];
+	arr = hf_val.split('+/-');
+	hf_val = parseFloat(arr[0].trim());
+	hf_data = ( unit_kcal ? hf_val * 4.186 : hf_val).toFixed(2);
+
+	if (arr.length > 1) {
+		uncertainty = parseFloat(arr[1].trim());
+		uncertainty = ( unit_kcal ? uncertainty * 4.186 : uncertainty).toFixed(2);
+	} else {
+		uncertainty = NaN;
+	}
+	
+	return uncertainty;
+}
+
