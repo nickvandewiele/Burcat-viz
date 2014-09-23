@@ -5,7 +5,8 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	var table = d3.select("table");
 	var thead = d3.select("thead");
 	//add header row:
-	thead.selectAll("th").data(["CAS"].concat(entries)).enter().append('th').text(function(d) {
+	var header_entries = ["CAS"].concat(entries);
+	thead.selectAll("th").data(header_entries).enter().append('th').text(function(d) {
 		return d;
 	});
 
@@ -68,9 +69,29 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	//select thead header elements: which contain the same strings as the td elements in tbody:
 	d3.selectAll("thead th").on('click', sortTable);
 
+	//append 'change' event to menu select elements:
+	var menu = d3.select("#menu select").on("change", change);
+
+	function redraw() {
+		sortTable(menu.property("value"));
+	}
+
+	function change() {
+		d3.transition().each(redraw);
+	}
+	
+	//create menu options:
+	menu.selectAll("option")
+      .data(header_entries)
+    .enter().append("option")
+      .text(function(d) { return d; });
+	//set default option:
+  	menu.property("value", "formula");
+	
 });
 
 function createurl(cas) {
+	var base_url = "http://cactus.nci.nih.gov/chemical/structure/";
 	var background_color = "e5f5f9";//hex
-	return "http://cactus.nci.nih.gov/chemical/structure/" + cas + "/image?format=png&bgcolor=%23"+background_color+"&header=\"" + cas +"\"";
+	return base_url + cas + "/image?format=png&bgcolor=%23"+background_color+"&header=\"" + cas +"\"";
 }
