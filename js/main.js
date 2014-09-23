@@ -1,4 +1,4 @@
-var entries = ['formula', 'formula_name_structure_1','reference_1', 'hf298_1'];
+var entries = ['formula', 'formula_name_structure_1','reference_1', 'hf298_1', 'calc_quality', 'max_lst_sq_error_1', 'source', 'date', 'additional_information_1'];
 
 d3.xml("/data/BURCAT_THR.xml", function(xml) {
 
