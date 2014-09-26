@@ -8,26 +8,28 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 	
 	var xScale = d3.scale.linear()
                      .domain(
-                     	[d3.min(dataset, function(d) {
+                     	[
+                     	d3.min(dataset, function(d) {
                      	var hf_entry = d3.select(d).select('hf298_1')[0][0];
-                     	return hf_entry == null ? 0: parseHf(hf_entry); 
-                     	}), d3.max(dataset, function(d) {
+                     	return parse(hf_entry)[0];}),
+                     	
+                     	d3.max(dataset, function(d) {
                      	var hf_entry = d3.select(d).select('hf298_1')[0][0];
-                     	return hf_entry == null ? 0: parseHf(hf_entry); 
-                     	})])
+                     	return parse(hf_entry)[0];})
+                     	])
                      .range([padding, w - padding]);
     
     var yScale = d3.scale.linear()
                      .domain([0, d3.max(dataset, function(d) {
                      	var hf_entry = d3.select(d).select('hf298_1')[0][0];
-                     	return hf_entry == null ? 0: parseUncertainty(hf_entry); 
+                     	return parse(hf_entry)[1]; 
                      	})])
                      .range([h - padding, padding]);       
     
     var rScale = d3.scale.linear()
                      .domain([0, d3.max(dataset, function(d) { 
                      	var hf_entry = d3.select(d).select('hf298_1')[0][0];
-                     	return hf_entry == null ? 0: parseUncertainty(hf_entry); 
+                     	return parse(hf_entry)[1]; 
                      	})])
                      .range([0, 5]);
                                     
@@ -36,13 +38,13 @@ d3.xml("/data/BURCAT_THR.xml", function(xml) {
 
 	svg.selectAll("circle").data(dataset).enter().append("circle").attr("cx", function(d) {
 			var hf_entry = d3.select(d).select('hf298_1')[0][0];
-			return hf_entry == null ? 0: xScale(parseHf(hf_entry)); 
+			return xScale(parse(hf_entry)[0]); 
 		}).attr("cy", function(d) {
 			var hf_entry = d3.select(d).select('hf298_1')[0][0];
-			return hf_entry == null ? 0: yScale(parseUncertainty(hf_entry)); 
+			return yScale(parse(hf_entry)[1]); 
 		}).attr("r", function(d) {
 			var hf_entry = d3.select(d).select('hf298_1')[0][0];
-			var yval = hf_entry == null ? 0: parseUncertainty(hf_entry);
+			var yval = parse(hf_entry)[1];
 			return yval == 0 ? 0: 2;
 			//return hf_entry == null ? 0: rScale(parseUncertainty(hf_entry)); 
 		});; 
@@ -101,34 +103,18 @@ svg.append("g")
 });
 
 
-function parseHf(hf_entry) {
-
+function parse(hf_entry) {
+	if(hf_entry == null){
+		return [0,0];
+	} 
 	var unit_kcal = false, //reset
 	hf_val = hf_entry.textContent;
 	unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true : false;
 
 	hf_val = hf_val.split('KJ')[0].split('KCAL')[0];
 	arr = hf_val.split('+/-');
-	hf_val = parseFloat(arr[0].trim());
-	return (unit_kcal ? hf_val * 4.186 : hf_val);
-}
-
-function parseUncertainty(hf_entry){
-	
-	var unit_kcal = false, //reset
-	hf_val = hf_entry.textContent;
-	
-	unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true: false;
-	
-	hf_val = hf_val.split('KJ')[0].split('KCAL')[0];
-	hf_val = hf_val.split('+/-');
-
-	if (hf_val.length > 1) {
-		uncertainty = parseFloat(hf_val[1].trim());
-		uncertainty = ( unit_kcal ? uncertainty * 4.186 : uncertainty);
-	} else {
-		uncertainty = 0;
-	}
-	
-	return uncertainty;
+	hf_val = arr.map(function(d){return parseFloat(d.trim());});
+	hf_val = hf_val.map(function(d){return unit_kcal ? d * 4.186 : d;});
+	hf_val.length == 1 ? hf_val.push(0): hf_val;
+	return hf_val; 
 }
