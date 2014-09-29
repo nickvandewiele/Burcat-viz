@@ -99,10 +99,27 @@ var yAxis = d3.svg.axis()
 svg.append("g")
  	.attr("class", "axis")  //Assign "axis" class
  	.attr("transform", "translate(" + padding + ",0)")
-    .call(yAxis);                      
+    .call(yAxis);   
+    
+svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", w)
+    .attr("y", h - padding-6)
+    .text("\u0394Hf (298K) / kJ mol-1");
+    
+svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", padding+10)
+    .attr("dy", "0.75em")
+    .attr("transform", "rotate(-90)")
+    .text("uncertainty \u0394Hf (298K) / kJ mol-1");
+                           
 });
 
 
+    
 function parse(hf_entry) {
 	if(hf_entry == null){
 		return [0,0];
