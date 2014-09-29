@@ -1,85 +1,66 @@
 function createMWPlot(dataset) {
 
-	//Width and height
-	var w = 1000;
-	var h = 500;
-	var padding = 30;
-
-	var xScale = d3.scale.linear().domain([d3.min(dataset, function(d) {
-		var mw_entry = select_mw(d);
-		return parse_mw(mw_entry);
-	}), d3.max(dataset, function(d) {
-		var mw_entry = select_mw(d);
-		return parse_mw(mw_entry);
-	})]).range([padding, w - padding]);
-
-	var yScale = d3.scale.linear().domain([0, d3.max(dataset, function(d) {
-		var mw_entry = select_mw(d);
-		return parse_mw(mw_entry);
-	})]).range([h - padding, padding]);
-
-	var rScale = d3.scale.linear().domain([0, d3.max(dataset, function(d) {
-		var mw_entry = select_mw(d);
-		return parse_mw(mw_entry);
-	})]).range([0, 5]);
-
-	//Create SVG element
-	var svg = d3.select("#mw").append("svg").attr("width", w).attr("height", h);
-
-	svg.selectAll("circle").data(dataset).enter().append("circle").attr("cx", function(d) {
-		var mw_entry = select_mw(d);
-		return xScale(parse_mw(mw_entry));
-	}).attr("cy", function(d) {
-		var mw_entry = select_mw(d);
-		return yScale(parse_mw(mw_entry));
-	}).attr("r", function(d) {
-		var mw_entry = select_mw(d);
-		var yval = parse_mw(mw_entry);
-		return yval == 0 ? 0 : 2;
+var margin = {top: 20, right: 30, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+    
+	var width = 1000,
+    	barHeight = 20,
+    	no_bars = 30;
+    var mws = [];
+    dataset.forEach(function(d){
+    	var mw_entry = select_mw(d);
+    	mws.push(parse_mw(mw_entry));
+    });
+    
+    var min_mws = d3.min(mws),
+    	max_mws = d3.max(mws);
+    	bar_data_size = (max_mws-min_mws)/no_bars;
+    
+    
+    var data = [];
+    
+    //push frequency to bins array:
+	for (var i = 0; i < no_bars; i++) {
+		var freq = mws.filter(function(d) {
+			var min_bin = min_mws + bar_data_size*i,
+				max_bin = min_mws + bar_data_size*(i+1);
+			return d > min_bin && d <= max_bin;
+		}).length;
+		data.push(freq);
+	}
+ 
+	var x = d3.scale.linear()
+    .domain([0, d3.max(data)])
+    .range([0, width]);    	
+    
+ var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  	.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+	var bar = chart.selectAll("g").data(data).enter().append("g").attr("transform", function(d, i) {
+		return "translate(0," + i * barHeight + ")";
 	});
-	
-	
-	svg.selectAll("text")
-	 .data(dataset)
-	 .enter()
-	 .append("text")
-	 .text(function(d) {
 
-		var mw_entry = select_mw(d);
-		var x = parse_mw(mw_entry).toFixed(0), y = parse_mw(mw_entry).toFixed(0);
-		if (x == '' || y == '') {
-			return '';
-		} else {
-			return 'CAS: '+d.getAttribute("CAS");
-		}
+	bar.append("rect").attr("width", x).attr("height", barHeight - 1);
 
-	 })
-	 .attr("x", function(d) {
-	 var mw_entry = select_mw(d);
-	 var x = xScale(parse_mw(mw_entry));
-	 return x;
-	 })
-	 .attr("y", function(d) {
-	 var mw_entry = select_mw(d);
-	 var y = yScale(parse_mw(mw_entry));
-	 return y;
-	 })
-	 .attr('id', 'mw_label');
+	bar.append("text").attr("x", function(d) {
+		return x(d) - 3;
+	}).attr("y", barHeight / 2).attr("dy", ".35em").text(function(d) {
+		return d;
+	}); 
 
-	var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
-	//Set rough # of ticks
-
-	svg.append("g").attr("class", "axis")//Assign "axis" class
-	.attr("transform", "translate(0," + (h - padding) + ")").call(xAxis);
-
-	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
-	svg.append("g").attr("class", "axis")//Assign "axis" class
-	.attr("transform", "translate(" + padding + ",0)").call(yAxis);
-
-	svg.append("text").attr("class", "x label").attr("text-anchor", "end").attr("x", w).attr("y", h - padding - 6).text("MW / g mol-1");
-
-	svg.append("text").attr("class", "y label").attr("text-anchor", "end").attr("y", padding + 10).attr("dy", "0.75em").attr("transform", "rotate(-90)").text("MW / g mol-1");
-
+  
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+  
+  chart.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
 }
 
 function select_mw(species_entry){
