@@ -1,7 +1,9 @@
 var entries = ['formula', 'formula_name_structure_1','reference_1', 'hf298_1', 'calc_quality', 'max_lst_sq_error_1', 'source', 'date', 'additional_information_1'];
 
 d3.xml("/data/BURCAT_THR.xml", function(xml) {
-
+	dataset = d3.select(xml).selectAll("specie")[0];
+	createScatterPlot(dataset);
+	
 	var table = d3.select("#table").append("table");
     var thead = table.append("thead");
     var tbody = table.append("tbody");
