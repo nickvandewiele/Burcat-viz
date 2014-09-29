@@ -24,7 +24,7 @@ function createScatterPlot(dataset) {
 	})]).range([0, 5]);
 
 	//Create SVG element
-	var svg = d3.select("body").append("svg").attr("width", w).attr("height", h);
+	var svg = d3.select("#scatter").append("svg").attr("width", w).attr("height", h);
 
 	svg.selectAll("circle").data(dataset).enter().append("circle").attr("cx", function(d) {
 		var hf_entry = d3.select(d).select('hf298_1')[0][0];
