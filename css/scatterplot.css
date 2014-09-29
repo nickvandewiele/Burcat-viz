@@ -9,12 +9,12 @@ text {
     font-size: 11px;
 }
 
-#circle_label {
+#circle_label, #mw_label {
 	fill-opacity: 0;
 	fill: white;
 }
 
-#circle_label:hover {
+#circle_label:hover, , #mw_label:hover {
 	fill-opacity: 1;
 	fill: red;
 }
