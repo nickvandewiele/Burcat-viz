@@ -51,7 +51,7 @@ function createScatterPlot(dataset) {
 		if (x == '' || y == '') {
 			return '';
 		} else {
-			return '('+x + ',' + y+')';
+			return 'CAS: '+d.getAttribute("CAS")+' ('+x + ',' + y+') kJ/mol';
 		}
 
 	 })
