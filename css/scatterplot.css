@@ -1,5 +1,4 @@
-.axis path,
-.axis line {
+.axis path, .axis line {
     fill: none;
     stroke: black;
     shape-rendering: crispEdges;
@@ -8,4 +7,14 @@
 text {
     font-family: sans-serif;
     font-size: 11px;
+}
+
+#circle_label {
+	fill-opacity: 0;
+	fill: white;
+}
+
+#circle_label:hover {
+	fill-opacity: 1;
+	fill: red;
 }
