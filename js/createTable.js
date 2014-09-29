@@ -126,25 +126,24 @@ function create_image_url(cas) {
 
 
 function get_uncertainty(species) {
-
-	var unit_kcal = false, //reset
-	hf = species.getElementsByTagName('hf298_1');
+	var hf = species.getElementsByTagName('hf298_1');
 	
 	if (hf.length == 0){//check if specie node has 'hf298_1' child:
 		return NaN;
 	}
+	var unit_kcal = false, //reset
 	hf_val = hf[0].textContent;
-	unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true: false;
-	
-	hf_val = hf_val.split('KJ')[0].split('KCAL')[0];
-	hf_val = hf_val.split('+/-');
+	unit_kcal = hf_val.toUpperCase().indexOf('CAL') > -1 ? true : false;
 
-	if (hf_val.length > 1) {
-		uncertainty = parseFloat(hf_val[1].trim());
-		uncertainty = ( unit_kcal ? uncertainty * 4.186 : uncertainty).toFixed(2);
-	} else {
-		uncertainty = NaN;
-	}
+	hf_val = hf_val.split('KJ')[0].split('KCAL')[0]
+	.split('+/-')
+	.map(function(d) {
+		return parseFloat(d.trim());
+	})
+	.map(function(d) {
+		return unit_kcal ? d * 4.186 : d;
+	});
+	hf_val.length == 1 ? hf_val.push(NaN) : hf_val;
+	return hf_val[1];
 	
-	return uncertainty;
 }
