@@ -1,4 +1,8 @@
-
+h1 {
+	font: 20px sans-serif;
+	font-weight: bold;
+  	text-align: center;
+}
 table {
   font: 12px sans-serif;
   width: 900px;
