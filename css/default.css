@@ -1,0 +1,41 @@
+h1 {
+	font: 28px sans-serif;
+	font-weight: bold;
+  	text-align: center;
+}
+h2 {
+	font: 18px sans-serif;
+  	text-align: center;
+}
+
+table {
+  font: 12px sans-serif;
+  width: 900px;
+}
+
+thead th {
+  height: 20px;
+  font: 12px sans-serif;
+  font-weight: bold;
+  text-align: center;
+  padding-right: 6px;
+  border-bottom: 1px solid black;
+  background: #2ca25f;//http://colorbrewer2.org/#
+}
+
+tr:hover {
+  font-weight: bold;
+  background: #99d8c9;//http://colorbrewer2.org/#
+}
+
+tbody tr {
+  font-weight: normal;
+  text-align: center;
+  height: 20px;
+  background: #e5f5f9;//http://colorbrewer2.org/#
+}
+
+.bubble, .chart, .scatter {
+	display: block;
+	margin: auto;
+}
