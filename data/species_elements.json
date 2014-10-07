@@ -1,0 +1,396 @@
+{
+	"name": "elements",
+	"children": [
+		{
+			"name": "F",
+			"children": [
+				{
+					"name": "F",
+					"children": [
+						{
+							"name": "F",
+							"size": 146
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Fe",
+			"children": [
+				{
+					"name": "Fe",
+					"children": [
+						{
+							"name": "Fe",
+							"size": 7
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Ar",
+			"children": [
+				{
+					"name": "Ar",
+					"children": [
+						{
+							"name": "Ar",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Si",
+			"children": [
+				{
+					"name": "Si",
+					"children": [
+						{
+							"name": "Si",
+							"size": 9
+						}
+					]
+				}
+			]
+		}, {
+			"name": "B",
+			"children": [
+				{
+					"name": "B",
+					"children": [
+						{
+							"name": "B",
+							"size": 23
+						}
+					]
+				}
+			]
+		}, {
+			"name": "C",
+			"children": [
+				{
+					"name": "C",
+					"children": [
+						{
+							"name": "C",
+							"size": 903
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Sn",
+			"children": [
+				{
+					"name": "Sn",
+					"children": [
+						{
+							"name": "Sn",
+							"size": 4
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Ba",
+			"children": [
+				{
+					"name": "Ba",
+					"children": [
+						{
+							"name": "Ba",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "N",
+			"children": [
+				{
+					"name": "N",
+					"children": [
+						{
+							"name": "N",
+							"size": 158
+						}
+					]
+				}
+			]
+		}, {
+			"name": "O",
+			"children": [
+				{
+					"name": "O",
+					"children": [
+						{
+							"name": "O",
+							"size": 290
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Kr",
+			"children": [
+				{
+					"name": "Kr",
+					"children": [
+						{
+							"name": "Kr",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "H",
+			"children": [
+				{
+					"name": "H",
+					"children": [
+						{
+							"name": "H",
+							"size": 953
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Mo",
+			"children": [
+				{
+					"name": "Mo",
+					"children": [
+						{
+							"name": "Mo",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "I",
+			"children": [
+				{
+					"name": "I",
+					"children": [
+						{
+							"name": "I",
+							"size": 23
+						}
+					]
+				}
+			]
+		}, {
+			"name": "K",
+			"children": [
+				{
+					"name": "K",
+					"children": [
+						{
+							"name": "K",
+							"size": 4
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Cl",
+			"children": [
+				{
+					"name": "Cl",
+					"children": [
+						{
+							"name": "Cl",
+							"size": 129
+						}
+					]
+				}
+			]
+		}, {
+			"name": "P",
+			"children": [
+				{
+					"name": "P",
+					"children": [
+						{
+							"name": "P",
+							"size": 20
+						}
+					]
+				}
+			]
+		}, {
+			"name": "S",
+			"children": [
+				{
+					"name": "S",
+					"children": [
+						{
+							"name": "S",
+							"size": 52
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Cr",
+			"children": [
+				{
+					"name": "Cr",
+					"children": [
+						{
+							"name": "Cr",
+							"size": 6
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Ne",
+			"children": [
+				{
+					"name": "Ne",
+					"children": [
+						{
+							"name": "Ne",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Hg",
+			"children": [
+				{
+					"name": "Hg",
+					"children": [
+						{
+							"name": "Hg",
+							"size": 4
+						}
+					]
+				}
+			]
+		}, {
+			"name": "He",
+			"children": [
+				{
+					"name": "He",
+					"children": [
+						{
+							"name": "He",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Al",
+			"children": [
+				{
+					"name": "Al",
+					"children": [
+						{
+							"name": "Al",
+							"size": 7
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Ge",
+			"children": [
+				{
+					"name": "Ge",
+					"children": [
+						{
+							"name": "Ge",
+							"size": 6
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Br",
+			"children": [
+				{
+					"name": "Br",
+					"children": [
+						{
+							"name": "Br",
+							"size": 51
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Pb",
+			"children": [
+				{
+					"name": "Pb",
+					"children": [
+						{
+							"name": "Pb",
+							"size": 16
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Ca",
+			"children": [
+				{
+					"name": "Ca",
+					"children": [
+						{
+							"name": "Ca",
+							"size": 2
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Xe",
+			"children": [
+				{
+					"name": "Xe",
+					"children": [
+						{
+							"name": "Xe",
+							"size": 1
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Mg",
+			"children": [
+				{
+					"name": "Mg",
+					"children": [
+						{
+							"name": "Mg",
+							"size": 15
+						}
+					]
+				}
+			]
+		}, {
+			"name": "Zn",
+			"children": [
+				{
+					"name": "Zn",
+					"children": [
+						{
+							"name": "Zn",
+							"size": 1
+						}
+					]
+				}
+			]
+		}
+	]
+}
