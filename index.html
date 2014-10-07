@@ -6,10 +6,6 @@
 		<link rel="stylesheet" href="css/scatterplot.css" />
 		<link rel="stylesheet" href="css/default.css" />
 		<link rel="stylesheet" href="css/histogram.css" />
-	</head>	
-	<body>	
-		<h1>Third Millennium Ideal Gas and Condensed Phase Thermochemical Database for Combustion </h1>
-		<h2>Goos, E.; Burcat, A.; Ruscic, B.: Aerospace Engineering, and Argonne National Laboratory, Chemistry Division, 2010</h2>			
 		<script src="js/ext/jquery.js"></script>
 		<script src="js/ext/jquery.stickytableheaders.min.js"></script>
 		<script src="js/ext/jquery.tinysort.min.js"></script>
@@ -20,9 +16,18 @@
 		<script src="js/sortTable.js"></script>
 		<script src="js/createTable.js"></script>
 		<script src="js/composition.js"></script>
+	</head>	
+	<body>	
+		<h1>Vizualization of Third Millennium Ideal Gas and Condensed Phase Thermochemical Database for Combustion </h1>
+		<h2>Goos, E.; Burcat, A.; Ruscic, B.: Aerospace Engineering, and Argonne National Laboratory, Chemistry Division, 2010</h2>			
+
+		<h2>Elemental composition</h2>	
 		<svg class="bubble"></svg>
+		<h2>Molecular weight distribution</h2>	
 		<svg class="chart"></svg>
+		<h2>Uncertainty on standard enthalpy of formation at 298K</h2>	
 		<svg class="scatter"></svg>
+		<h2>Individual molecule entries</h2>	
 		<p id="menu"><b>Sort:</b> <select></select>
 		<div id="table"></div>
 	</body>
