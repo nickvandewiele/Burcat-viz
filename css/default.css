@@ -29,3 +29,8 @@ tbody tr {
   height: 20px;
   background: #e5f5f9;//http://colorbrewer2.org/#
 }
+
+.bubble, .chart, .scatter {
+	display: block;
+	margin: auto;
+}
