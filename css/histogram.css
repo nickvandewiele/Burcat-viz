@@ -3,7 +3,7 @@ body {
 }
 
 .bar rect {
-  fill: steelblue;
+  fill: #2ca25f;
   shape-rendering: crispEdges;
 }
 
