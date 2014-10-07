@@ -14,7 +14,7 @@ text {
 	fill: white;
 }
 
-#circle_label:hover, , #mw_label:hover {
+#circle_label:hover, #mw_label:hover {
 	fill-opacity: 1;
 	fill: red;
 }
