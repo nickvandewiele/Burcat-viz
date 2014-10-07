@@ -3,6 +3,11 @@ h1 {
 	font-weight: bold;
   	text-align: center;
 }
+h2 {
+	font: 18px sans-serif;
+  	text-align: center;
+}
+
 table {
   font: 12px sans-serif;
   width: 900px;
